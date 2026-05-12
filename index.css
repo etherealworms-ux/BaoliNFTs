@@ -239,37 +239,31 @@ section {
 }
 
         #web3-gallery {
-            perspective: 1200px; /* Brought closer */
-            padding: 150px 0; /* More space around */
+            padding: 100px 20px;
         }
 
-        .vortex-container {
-            display: flex;
-            flex-direction: column;
-            gap: 80px; /* Increased gap */
-            transform: rotateY(-10deg) rotateX(5deg); /* Flatter for better visibility */
-            transform-style: preserve-3d;
-            padding: 50px 0;
-            will-change: transform;
+        .grid-gallery-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 40px;
+            max-width: 1300px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 10;
         }
 
         .web3-card-upgraded {
-            width: 480px; /* Zoomed in even more */
-            height: 480px;
+            width: 100%; /* Flexible in grid */
+            max-width: 450px;
+            aspect-ratio: 1;
+            margin: 0 auto;
             background: #123c44;
             border: 3px solid var(--neon-teal);
             border-radius: 20px;
-            padding: 15px;
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            cursor: pointer;
-            will-change: transform;
+            overflow: hidden;
             position: relative;
-            background: linear-gradient(135deg, #123c44 0%, #0a1b1e 100%);
-        }
-
-        .web3-card-upgraded:hover { 
-            transform: translateZ(80px) rotateY(15deg) rotateX(-5deg) !important; 
-            border-color: var(--neon-purple); 
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            cursor: pointer;
             box-shadow: 0 0 40px var(--neon-purple); 
             z-index: 50; 
         }
