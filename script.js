@@ -116,8 +116,14 @@ document.addEventListener('DOMContentLoaded', () => {
     const cinematicCards = document.querySelectorAll('.cinematic-card');
     const galleryReveal = document.querySelector('.gallery-reveal-text');
 
-    window.addEventListener('scroll', () => {
-        const scrolled = window.pageYOffset;
+    let currentScroll = 0;
+    let targetScroll = 0;
+    const ease = 0.075; // Inertia factor for smoothness
+
+    function smoothScroll() {
+        targetScroll = window.pageYOffset;
+        currentScroll += (targetScroll - currentScroll) * ease;
+        
         const viewportHeight = window.innerHeight;
         const centerY = viewportHeight / 2;
 
@@ -126,32 +132,42 @@ document.addEventListener('DOMContentLoaded', () => {
             const cardCenterY = rect.top + rect.height / 2;
             const distanceToCenter = Math.abs(centerY - cardCenterY);
             
-            // Focal Point Detection (Focused if near center)
-            if (distanceToCenter < 250) {
+            // Refined Focal Point Detection
+            if (distanceToCenter < 300) {
                 card.classList.add('focused');
             } else {
                 card.classList.remove('focused');
             }
 
-            // Parallax Depth (Rotation & Scaling)
+            // Elegant Parallax & Depth
             if (rect.top < viewportHeight && rect.bottom > 0) {
                 const relativePos = (cardCenterY - centerY) / centerY;
-                const rotation = relativePos * 20; // Max 20deg rotation
-                const scale = 1 - Math.abs(relativePos) * 0.2;
+                const rotation = relativePos * 25; 
+                const scale = 1 - Math.abs(relativePos) * 0.15;
+                const brightness = 1 - Math.abs(relativePos) * 0.5;
                 
                 const inner = card.querySelector('.card-inner');
                 if (inner) {
                     inner.style.transform = `rotateY(${rotation}deg) scale(${scale})`;
+                    inner.style.filter = `brightness(${brightness})`;
                 }
             }
         });
 
-        // Trigger BAOLI Text Reveal
+        // Elegant BAOLI Reveal
         if (galleryReveal) {
             const rect = galleryReveal.getBoundingClientRect();
-            if (rect.top < viewportHeight * 0.9) {
+            if (rect.top < viewportHeight * 0.85) {
                 galleryReveal.classList.add('active');
+                galleryReveal.querySelector('h2').style.letterSpacing = '10px';
+            } else {
+                galleryReveal.classList.remove('active');
+                galleryReveal.querySelector('h2').style.letterSpacing = '50px';
             }
         }
-    });
+
+        requestAnimationFrame(smoothScroll);
+    }
+
+    smoothScroll();
 });
