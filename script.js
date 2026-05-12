@@ -125,9 +125,17 @@ document.addEventListener('DOMContentLoaded', () => {
             
             if (rect.top < viewportHeight && rect.bottom > 0) {
                 const speed = parseFloat(track.dataset.speed || 1);
-                // Calculate horizontal shift based on scroll position relative to viewport
-                const shift = (rect.top - viewportHeight) * speed;
+                
+                // Calculate progress (1 at bottom, 0 at center)
+                const progress = rect.top / viewportHeight;
+                
+                // Start far outside (+/- 800px) and move to 0
+                const shift = progress * (speed > 0 ? 1000 : -1000);
                 track.style.transform = `translateX(${shift}px)`;
+                
+                // Fade in as it approaches the center
+                const opacity = 1 - Math.min(1, progress * 1.5);
+                track.style.opacity = opacity;
             }
         });
 
