@@ -259,14 +259,17 @@ section {
             justify-content: center;
             perspective: 2500px;
             opacity: 0;
-            transform: scale(0.5) rotateY(180deg);
             transition: all 1.2s cubic-bezier(0.2, 0.8, 0.2, 1);
             will-change: transform, opacity;
         }
 
+        /* Walking in from alternate sides */
+        .cinematic-card:nth-child(odd) { transform: translateX(-150px) scale(0.8); }
+        .cinematic-card:nth-child(even) { transform: translateX(150px) scale(0.8); }
+
         .cinematic-card.focused {
             opacity: 1;
-            transform: scale(1) rotateY(0deg);
+            transform: translateX(0) scale(1);
         }
 
         .card-inner {
