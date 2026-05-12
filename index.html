@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BAOLI HUB | Neo-Kyoto Laundromat</title>
+    <link rel="stylesheet" href="index.css">
+    <style>
+        /* Section Specific Styles */
+        #hero { background: radial-gradient(circle, #2a0a4a 0%, #120422 100%); }
+        
+        .baoli-logo {
+            font-size: 4rem;
+            padding: 20px 40px;
+            border: 8px double var(--neon-teal);
+            display: inline-block;
+            margin: 20px 0;
+            box-shadow: 0 0 20px var(--neon-teal);
+        }
+
+        #wash-cycle .grid-container {
+            max-width: 800px;
+            width: 100%;
+        }
+        .grid-image {
+            width: 100%;
+            border: 4px solid var(--neon-teal);
+            image-rendering: pixelated;
+        }
+
+        #story-mint .story-box {
+            display: flex;
+            gap: 40px;
+            max-width: 900px;
+            background: rgba(30, 8, 51, 0.8);
+            padding: 30px;
+            align-items: center;
+        }
+
+        #faq {
+            background-image: url('assets/faq-bg.png');
+            background-size: cover;
+            background-position: center;
+        }
+
+        .chat-bubble {
+            background: rgba(0, 0, 0, 0.7);
+            border: 2px solid var(--neon-teal);
+            padding: 15px 25px;
+            margin-bottom: 15px;
+            border-radius: 20px;
+            max-width: 500px;
+            position: relative;
+        }
+
+        .chat-question { align-self: flex-start; border-color: var(--neon-purple); }
+        .chat-answer { align-self: flex-end; border-color: var(--neon-teal); }
+
+        .coin {
+            position: absolute;
+            width: 40px;
+            image-rendering: pixelated;
+        }
+    </style>
+</head>
+<body>
+    <!-- RETRO BROWSER WINDOW WRAPPER -->
+    <div class="browser-window">
+        <!-- Window Header / Tab Area -->
+        <header class="browser-header">
+            <div class="browser-tabs">
+                <div class="browser-tab">
+                    BAOLI.NET <span class="close-icon">×</span>
+                </div>
+            </div>
+            <div class="window-controls">
+                <div class="control-dot close"></div>
+                <div class="control-dot min"></div>
+                <div class="control-dot max"></div>
+            </div>
+        </header>
+
+        <!-- Window Toolbar / Address Bar -->
+        <div class="browser-toolbar">
+            <div class="nav-arrows">
+                <span style="cursor: pointer; opacity: 0.5;">←</span>
+                <span style="cursor: pointer; opacity: 0.5;">→</span>
+                <span style="cursor: pointer;">↻</span>
+            </div>
+            <div class="address-bar">
+                <span class="lock-icon">🔒</span>
+                https://www.baoli.net/mint
+            </div>
+        </div>
+
+        <!-- STICKY NEON NAVBAR (Inside Browser) -->
+        <nav style="width: 100%; height: 70px; background: rgba(10, 2, 18, 0.95); backdrop-filter: blur(10px); border-bottom: 2px solid #00f2ff; z-index: 1000; display: flex; align-items: center; justify-content: center; position: sticky; top: 98px;">
+            <div class="container" style="display: flex; justify-content: space-between; align-items: center; width: 100%; max-width: 1200px; padding: 0 20px;">
+                <div style="font-family: 'Press Start 2P'; font-size: 1.2rem; color: #00f2ff; text-shadow: 0 0 10px #00f2ff;">BAOLI</div>
+                <div class="nav-links" style="display: flex; gap: 30px; font-family: 'VT323'; font-size: 1.5rem; align-items: center;">
+                    <a href="#hero" style="color: #fff; text-decoration: none; transition: color 0.3s;">HOME</a>
+                    <a href="#web3-gallery" style="color: #fff; text-decoration: none; transition: color 0.3s;">COLLECTION</a>
+                    <a href="#story-mint" style="color: #fff; text-decoration: none; transition: color 0.3s;">LORE</a>
+                    <a href="#faq" style="color: #fff; text-decoration: none; transition: color 0.3s;">ARCHIVES</a>
+                </div>
+            </div>
+        </nav>
+
+        <style>
+            nav a:hover { color: #00f2ff !important; text-shadow: 0 0 10px #00f2ff; }
+            @media (max-width: 768px) {
+                nav { height: 60px !important; }
+                .nav-links { display: none !important; }
+                nav .container { justify-content: center !important; }
+            }
+            .reveal { opacity: 0; transform: translateY(30px); transition: all 0.8s ease-out; }
+            .reveal.active { opacity: 1; transform: translateY(0); }
+        </style>
+
+        <!-- Main Content Area -->
+        <main class="browser-content">
+            <!-- SECTION 1: HERO -->
+            <section id="hero" class="reveal" style="background: 
+                conic-gradient(from 180deg at 50% 50%, 
+                #120422 0deg 30deg, 
+                #00f2ff 30deg 60deg, 
+                #120422 60deg 90deg, 
+                #bd00ff 90deg 120deg, 
+                #120422 120deg 150deg, 
+                #00f2ff 150deg 180deg, 
+                #120422 180deg 210deg, 
+                #bd00ff 210deg 240deg, 
+                #120422 240deg 270deg, 
+                #00f2ff 270deg 300deg, 
+                #120422 300deg 330deg, 
+                #bd00ff 330deg 360deg);
+                position: relative; overflow: hidden; padding: 60px 20px;">
+                
+                <div style="position: relative; z-index: 2; text-align: center; width: 100%;">
+                    <div class="logo-container" style="display: inline-block; padding: 10px; background: #bd00ff; border-radius: 20px; margin-bottom: 40px;">
+                        <div style="border: 4px solid #00f2ff; background: #120422; padding: 15px 40px; border-radius: 15px; box-shadow: inset 0 0 10px #00f2ff;">
+                            <h1 style="color: #00f2ff; margin: 0; font-size: 3.5rem; letter-spacing: 4px;">BAOLI</h1>
+                        </div>
+                    </div>
+                    <div style="background: #1e0833; width: 100%; max-width: 900px; margin: 0 auto 20px; padding: 30px; border-left: 20px solid transparent; border-right: 20px solid transparent; position: relative;">
+                        <h2 style="font-size: 3rem; line-height: 1.1; color: #fff; margin: 0; text-shadow: 4px 4px #000;">
+                            BAOLI: The Pixel<br>Panda Dynasty.
+                        </h2>
+                    </div>
+                    <p style="font-size: 1.4rem; font-family: 'VT323'; color: #fff; margin-bottom: 40px; text-shadow: 2px 2px #000;">
+                        Enter the Neon Dream. Collect, Lore, Conquer.<br>10,000 Unique Digital Sentinels.
+                    </p>
+                    <div style="display: inline-block; padding: 5px; background: #00f2ff; border-radius: 25px; box-shadow: 0 0 20px rgba(0, 242, 255, 0.5);">
+                        <a href="#" class="btn-retro" style="background: #bd00ff; border: none; border-radius: 20px; padding: 20px 60px; font-size: 2rem; color: #fff; display: block; box-shadow: none;">JOIN WL</a>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SECTION 2: OPTIMIZED 3D WEB3 VORTEX -->
+            <section id="web3-gallery" style="background: #0a0212; padding: 100px 0; overflow: hidden; border-top: 5px solid #bd00ff; border-bottom: 5px solid #00f2ff; position: relative;">
+                <div style="position: absolute; bottom: 0; left: 0; width: 100%; height: 30%; background: linear-gradient(0deg, rgba(0, 242, 255, 0.05) 0%, transparent 100%); transform: rotateX(60deg); transform-origin: bottom; background-image: linear-gradient(rgba(0, 242, 255, 0.1) 1px, transparent 1px); background-size: 50px 50px; z-index: 1;"></div>
+                <div style="position: relative; z-index: 5; text-align: center;">
+                    <h2 class="neon-text flicker" style="font-size: 3rem; margin-bottom: 60px; font-family: 'Press Start 2P';">THE ELITE COLLECTION</h2>
+                </div>
+                <div class="vortex-container">
+                    <div class="marquee-row row-left">
+                        <div class="web3-card-upgraded"><img src="assets/profile.png"></div>
+                        <div class="web3-card-upgraded"><img src="assets/hero.png"></div>
+                        <div class="web3-card-upgraded"><img src="assets/grid.png"></div>
+                        <div class="web3-card-upgraded"><img src="assets/profile.png"></div>
+                        <div class="web3-card-upgraded"><img src="assets/hero.png"></div>
+                        <div class="web3-card-upgraded"><img src="assets/profile.png"></div>
+                        <div class="web3-card-upgraded"><img src="assets/hero.png"></div>
+                        <div class="web3-card-upgraded"><img src="assets/grid.png"></div>
+                        <div class="web3-card-upgraded"><img src="assets/profile.png"></div>
+                        <div class="web3-card-upgraded"><img src="assets/hero.png"></div>
+                    </div>
+                    <div class="marquee-row row-right">
+                        <div class="web3-card-upgraded featured"><img src="assets/grid.png"></div>
+                        <div class="web3-card-upgraded featured"><img src="assets/profile.png"></div>
+                        <div class="web3-card-upgraded featured"><img src="assets/hero.png"></div>
+                        <div class="web3-card-upgraded featured"><img src="assets/grid.png"></div>
+                        <div class="web3-card-upgraded featured"><img src="assets/profile.png"></div>
+                        <div class="web3-card-upgraded featured"><img src="assets/grid.png"></div>
+                        <div class="web3-card-upgraded featured"><img src="assets/profile.png"></div>
+                        <div class="web3-card-upgraded featured"><img src="assets/hero.png"></div>
+                        <div class="web3-card-upgraded featured"><img src="assets/grid.png"></div>
+                        <div class="web3-card-upgraded featured"><img src="assets/profile.png"></div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SECTION 3: STORY CHAPTERS -->
+            <section id="story-mint" class="reveal" style="background: #0a0212; padding: 100px 0;">
+                <div class="container" style="max-width: 1000px;">
+                    <h2 class="neon-text flicker" style="text-align: center; margin-bottom: 80px; font-size: 3.5rem;">THE LORE</h2>
+                    <div class="lore-stack">
+                        <div class="story-chapter-card">
+                            <div class="chapter-img-box">
+                                <img src="assets/profile.png" alt="The Wizard">
+                            </div>
+                            <div class="chapter-text-box">
+                                <h3 style="color: #ffd700; margin-bottom: 25px; font-size: 1.8rem; line-height: 1.2; font-family: 'Press Start 2P';">THE WIZARD'S VISION:</h3>
+                                <p style="color: #fff; font-size: 1.8rem; font-family: 'VT323'; line-height: 1.5;">
+                                    The Elders foresee a disruption in the neon flow. "The Laundromat of Time" must be secured. Your journey begins with your Sentinel.
+                                </p>
+                            </div>
+                        </div>
+                        <div class="story-chapter-card">
+                            <div class="chapter-img-box">
+                                <img src="assets/hero.png" alt="The Warrior" style="filter: hue-rotate(300deg);">
+                            </div>
+                            <div class="chapter-text-box">
+                                <h3 style="color: #ffd700; margin-bottom: 25px; font-size: 1.8rem; line-height: 1.2; font-family: 'Press Start 2P';">THE FIST OF JUSTICE:</h3>
+                                <p style="color: #fff; font-size: 1.8rem; font-family: 'VT323'; line-height: 1.5;">
+                                    Where words fail, actions speak. The Sentinels are the guardians. Together, we rebuild the future.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SECTION 4: FAQ -->
+            <section id="faq" class="reveal" style="background-image: url('assets/hero.png'); background-size: cover; background-position: center; position: relative;">
+                <div style="background: rgba(0, 0, 0, 0.6); position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 1;"></div>
+                <h2 style="margin-bottom: 40px; position: relative; z-index: 2; text-align: center; color: white; font-size: 2rem;">ACCESS THE ARCHIVES<br>(FAQ)</h2>
+                <div class="faq-accordion" style="width: 100%; max-width: 600px; position: relative; z-index: 2;">
+                    <div class="faq-item pixel-border-teal">
+                        <div class="faq-header" style="display: flex; justify-content: space-between; align-items: center; padding: 15px 25px;">
+                            <span style="font-family: 'Press Start 2P'; font-size: 14px;">What is BAOLI?</span>
+                            <span class="faq-icon" style="font-family: 'Press Start 2P'; font-size: 18px;">+</span>
+                        </div>
+                        <div class="faq-content">BAOLI is a unique, community-driven NFT project of 10,000 pixel pandas.</div>
+                    </div>
+                    <div class="faq-item pixel-border-teal">
+                        <div class="faq-header" style="display: flex; justify-content: space-between; align-items: center; padding: 15px 25px;">
+                            <span style="font-family: 'Press Start 2P'; font-size: 14px;">How can I get a Sentinel?</span>
+                            <span class="faq-icon" style="font-family: 'Press Start 2P'; font-size: 18px;">+</span>
+                        </div>
+                        <div class="faq-content">Sentinels can be minted during our official drop events.</div>
+                    </div>
+                </div>
+
+            </section>
+        </main>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
