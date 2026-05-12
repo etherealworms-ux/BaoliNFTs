@@ -251,49 +251,63 @@ section {
             margin: 0 auto;
         }
 
-        .cinematic-gallery-stack {
+        .crossing-parallax-gallery {
             display: flex;
             flex-direction: column;
-            gap: 150px;
+            gap: 60px;
             padding: 100px 0;
-            max-width: 1200px;
-            margin: 0 auto;
+            overflow: hidden;
+            width: 100%;
+        }
+
+        .parallax-track {
+            display: flex;
+            gap: 40px;
+            white-space: nowrap;
+            will-change: transform;
+            padding: 0 10%;
         }
 
         .cinematic-card {
-            width: 100%;
-            height: 700px;
+            width: 450px;
+            flex-shrink: 0;
             display: flex;
             align-items: center;
             justify-content: center;
-            perspective: 2500px;
-            opacity: 0;
-            transition: all 1.2s cubic-bezier(0.2, 0.8, 0.2, 1);
-            will-change: transform, opacity;
+            perspective: 2000px;
         }
 
-        /* Split Entrance: 3 from Left, 3 from Right */
-        .cinematic-card.from-left { transform: translateX(-250px) scale(0.8) rotateY(20deg); }
-        .cinematic-card.from-right { transform: translateX(250px) scale(0.8) rotateY(-20deg); }
-
-        .cinematic-card.focused {
-            opacity: 1;
-            transform: translateX(0) scale(1) rotateY(0deg);
+        @media (max-width: 768px) {
+            .cinematic-card {
+                width: 280px;
+            }
+            .card-inner {
+                width: 280px !important;
+                height: 280px !important;
+                border-radius: 20px !important;
+            }
+            .crossing-parallax-gallery {
+                gap: 40px;
+            }
         }
 
         .card-inner {
             position: relative;
-            width: 550px;
-            max-width: 90vw;
-            height: 550px;
-            max-height: 70vh;
-            border: 1px solid rgba(0, 242, 255, 0.3);
-            border-radius: 40px;
+            width: 450px;
+            height: 450px;
+            border: 1px solid rgba(0, 242, 255, 0.4);
+            border-radius: 35px;
             overflow: hidden;
-            background: rgba(18, 60, 68, 0.2);
-            backdrop-filter: blur(20px);
-            box-shadow: 0 20px 50px rgba(0,0,0,0.5), inset 0 0 20px rgba(0, 242, 255, 0.1);
-            transition: all 0.8s ease;
+            background: rgba(18, 60, 68, 0.15);
+            backdrop-filter: blur(15px);
+            box-shadow: 0 15px 45px rgba(0,0,0,0.6);
+            transition: all 0.5s ease;
+        }
+
+        .cinematic-card:hover .card-inner {
+            transform: scale(1.05) rotateY(15deg);
+            border-color: var(--neon-teal);
+            box-shadow: 0 0 50px rgba(0, 242, 255, 0.3);
         }
 
         .cinematic-card:hover .card-inner {
