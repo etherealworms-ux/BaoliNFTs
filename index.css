@@ -242,30 +242,40 @@ section {
             padding: 100px 20px;
         }
 
-        .grid-gallery-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+        .horizontal-parallax-container {
+            display: flex;
+            flex-direction: column;
             gap: 40px;
-            max-width: 1300px;
-            margin: 0 auto;
-            position: relative;
-            z-index: 10;
+            overflow: hidden;
+            width: 100%;
+            padding: 50px 0;
+        }
+
+        .parallax-row {
+            display: flex;
+            gap: 30px;
+            white-space: nowrap;
+            will-change: transform;
         }
 
         .web3-card-upgraded {
-            width: 100%; /* Flexible in grid */
-            max-width: 450px;
+            width: 350px;
+            flex-shrink: 0;
             aspect-ratio: 1;
-            margin: 0 auto;
             background: #123c44;
             border: 3px solid var(--neon-teal);
             border-radius: 20px;
             overflow: hidden;
             position: relative;
-            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            cursor: pointer;
-            box-shadow: 0 0 40px var(--neon-purple); 
-            z-index: 50; 
+            transition: transform 0.4s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+
+        .web3-card-upgraded:hover {
+            transform: scale(1.05);
+            border-color: var(--neon-purple);
+            box-shadow: 0 0 40px var(--neon-purple);
+            z-index: 50;
         }
 
         .web3-card-upgraded.featured { 

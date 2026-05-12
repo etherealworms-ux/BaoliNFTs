@@ -112,24 +112,21 @@ document.addEventListener('DOMContentLoaded', () => {
 
     reveals.forEach(el => revealObserver.observe(el));
 
-    // Scroll-Scrub Parallax and Final Text Reveal
+    // Horizontal Scroll-Driven Parallax
+    const parallaxRows = document.querySelectorAll('.parallax-row');
     const galleryReveal = document.querySelector('.gallery-reveal-text');
-    const parallaxCards = document.querySelectorAll('.web3-card-upgraded[data-parallax]');
 
     window.addEventListener('scroll', () => {
         const scrolled = window.pageYOffset;
         const viewportHeight = window.innerHeight;
 
-        // Parallax for cards
-        parallaxCards.forEach(card => {
-            const speed = parseFloat(card.dataset.parallax);
-            const rect = card.getBoundingClientRect();
-            const elementTop = rect.top + scrolled;
-            
-            // Only calculate if near viewport
+        parallaxRows.forEach(row => {
+            const rect = row.getBoundingClientRect();
             if (rect.top < viewportHeight && rect.bottom > 0) {
-                const yPos = (scrolled - elementTop) * speed;
-                card.style.transform = `translateY(${yPos}px)`;
+                const speed = parseFloat(row.dataset.speed || 1);
+                // Calculate horizontal shift based on section visibility
+                const shift = (rect.top - viewportHeight) * speed;
+                row.style.transform = `translateX(${shift}px)`;
             }
         });
 
