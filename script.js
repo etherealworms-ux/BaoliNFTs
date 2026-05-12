@@ -1,15 +1,23 @@
 document.addEventListener('DOMContentLoaded', () => {
     // Smooth scrolling for navigation
-    const enterBtn = document.querySelector('a[href^="#"]');
-    if (enterBtn) {
-        enterBtn.addEventListener('click', (e) => {
+    const navLinks = document.querySelectorAll('a[href^="#"]');
+    navLinks.forEach(link => {
+        link.addEventListener('click', (e) => {
             e.preventDefault();
-            const target = document.querySelector(enterBtn.getAttribute('href'));
-            if (target) {
-                target.scrollIntoView({ behavior: 'smooth' });
+            const targetId = link.getAttribute('href');
+            const targetElement = document.querySelector(targetId);
+            if (targetElement) {
+                const offset = 140; // browser header + toolbar + navbar
+                const elementPosition = targetElement.getBoundingClientRect().top;
+                const offsetPosition = elementPosition + window.pageYOffset - offset;
+
+                window.scrollTo({
+                    top: offsetPosition,
+                    behavior: 'smooth'
+                });
             }
         });
-    }
+    });
 
     // Micro-interactions for buttons
     const buttons = document.querySelectorAll('.btn-retro');
@@ -92,17 +100,15 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     });
-    // Scroll Reveal Logic
+    // Enhanced Scroll Reveal Logic
     const reveals = document.querySelectorAll('.reveal');
-    const observer = new IntersectionObserver((entries) => {
+    const revealObserver = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
                 entry.target.classList.add('active');
             }
         });
-    }, { threshold: 0.1 });
+    }, { threshold: 0.15 });
 
-    reveals.forEach(reveal => {
-        observer.observe(reveal);
-    });
+    reveals.forEach(el => revealObserver.observe(el));
 });

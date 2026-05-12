@@ -113,8 +113,31 @@
                 .nav-links { display: none !important; }
                 nav .container { justify-content: center !important; }
             }
-            .reveal { opacity: 0; transform: translateY(30px); transition: all 0.8s ease-out; }
-            .reveal.active { opacity: 1; transform: translateY(0); }
+            .reveal { 
+                opacity: 0; 
+                transform: translateY(60px) scale(0.95); 
+                transition: opacity 1.2s cubic-bezier(0.22, 1, 0.36, 1), transform 1.2s cubic-bezier(0.22, 1, 0.36, 1); 
+                will-change: transform, opacity;
+            }
+            .reveal.active { 
+                opacity: 1; 
+                transform: translateY(0) scale(1); 
+            }
+            
+            /* Staggered children utility */
+            .stagger-item {
+                opacity: 0;
+                transform: translateY(30px);
+                transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+            }
+            .reveal.active .stagger-item {
+                opacity: 1;
+                transform: translateY(0);
+            }
+            .reveal.active .stagger-item:nth-child(1) { transition-delay: 0.1s; }
+            .reveal.active .stagger-item:nth-child(2) { transition-delay: 0.3s; }
+            .reveal.active .stagger-item:nth-child(3) { transition-delay: 0.5s; }
+            .reveal.active .stagger-item:nth-child(4) { transition-delay: 0.7s; }
         </style>
 
         <!-- Main Content Area -->
@@ -185,7 +208,7 @@
                 <div class="container" style="max-width: 1000px; position: relative; z-index: 2;">
                     <h2 class="neon-text flicker" style="text-align: center; margin-bottom: 80px; font-size: 3.5rem;">THE LORE</h2>
                     <div class="lore-stack">
-                        <div class="story-chapter-card">
+                        <div class="story-chapter-card stagger-item">
                             <div class="chapter-img-box">
                                 <img src="assets/profile.png" alt="The Wizard">
                             </div>
@@ -196,7 +219,7 @@
                                 </p>
                             </div>
                         </div>
-                        <div class="story-chapter-card">
+                        <div class="story-chapter-card stagger-item">
                             <div class="chapter-img-box">
                                 <img src="assets/hero.png" alt="The Warrior" style="filter: hue-rotate(300deg);">
                             </div>
@@ -216,14 +239,14 @@
                 <div style="background: rgba(10, 2, 18, 0.45); position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 1;"></div>
                 <h2 style="margin-bottom: 40px; position: relative; z-index: 2; text-align: center; color: white; font-size: 2rem;">ACCESS THE ARCHIVES<br>(FAQ)</h2>
                 <div class="faq-accordion" style="width: 100%; max-width: 600px; position: relative; z-index: 2;">
-                    <div class="faq-item pixel-border-teal">
+                    <div class="faq-item pixel-border-teal stagger-item">
                         <div class="faq-header" style="display: flex; justify-content: space-between; align-items: center; padding: 15px 25px;">
                             <span style="font-family: 'Press Start 2P'; font-size: 14px;">What is BAOLI?</span>
                             <span class="faq-icon" style="font-family: 'Press Start 2P'; font-size: 18px;">+</span>
                         </div>
                         <div class="faq-content">BAOLI is a unique, community-driven NFT project of 10,000 pixel pandas.</div>
                     </div>
-                    <div class="faq-item pixel-border-teal">
+                    <div class="faq-item pixel-border-teal stagger-item">
                         <div class="faq-header" style="display: flex; justify-content: space-between; align-items: center; padding: 15px 25px;">
                             <span style="font-family: 'Press Start 2P'; font-size: 14px;">How can I get a Sentinel?</span>
                             <span class="faq-icon" style="font-family: 'Press Start 2P'; font-size: 18px;">+</span>
