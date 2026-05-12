@@ -112,21 +112,37 @@ document.addEventListener('DOMContentLoaded', () => {
 
     reveals.forEach(el => revealObserver.observe(el));
 
-    // Horizontal Scroll-Driven Parallax
-    const parallaxRows = document.querySelectorAll('.parallax-row');
+    // Cinematic Focal-Point Scroll Logic
+    const cinematicCards = document.querySelectorAll('.cinematic-card');
     const galleryReveal = document.querySelector('.gallery-reveal-text');
 
     window.addEventListener('scroll', () => {
         const scrolled = window.pageYOffset;
         const viewportHeight = window.innerHeight;
+        const centerY = viewportHeight / 2;
 
-        parallaxRows.forEach(row => {
-            const rect = row.getBoundingClientRect();
+        cinematicCards.forEach(card => {
+            const rect = card.getBoundingClientRect();
+            const cardCenterY = rect.top + rect.height / 2;
+            const distanceToCenter = Math.abs(centerY - cardCenterY);
+            
+            // Focal Point Detection (Focused if near center)
+            if (distanceToCenter < 250) {
+                card.classList.add('focused');
+            } else {
+                card.classList.remove('focused');
+            }
+
+            // Parallax Depth (Rotation & Scaling)
             if (rect.top < viewportHeight && rect.bottom > 0) {
-                const speed = parseFloat(row.dataset.speed || 1);
-                // Calculate horizontal shift based on section visibility
-                const shift = (rect.top - viewportHeight) * speed;
-                row.style.transform = `translateX(${shift}px)`;
+                const relativePos = (cardCenterY - centerY) / centerY;
+                const rotation = relativePos * 20; // Max 20deg rotation
+                const scale = 1 - Math.abs(relativePos) * 0.2;
+                
+                const inner = card.querySelector('.card-inner');
+                if (inner) {
+                    inner.style.transform = `rotateY(${rotation}deg) scale(${scale})`;
+                }
             }
         });
 

@@ -242,40 +242,86 @@ section {
             padding: 100px 20px;
         }
 
-        .horizontal-parallax-container {
+        .cinematic-gallery-stack {
             display: flex;
             flex-direction: column;
-            gap: 40px;
-            overflow: hidden;
+            gap: 150px;
+            padding: 100px 0;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .cinematic-card {
             width: 100%;
-            padding: 50px 0;
-        }
-
-        .parallax-row {
+            height: 600px;
             display: flex;
-            gap: 30px;
-            white-space: nowrap;
-            will-change: transform;
+            align-items: center;
+            justify-content: center;
+            perspective: 2000px;
+            opacity: 0.3;
+            transform: scale(0.8);
+            transition: all 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
+            will-change: transform, opacity;
         }
 
-        .web3-card-upgraded {
-            width: 350px;
-            flex-shrink: 0;
-            aspect-ratio: 1;
-            background: #123c44;
-            border: 3px solid var(--neon-teal);
-            border-radius: 20px;
-            overflow: hidden;
+        .cinematic-card.focused {
+            opacity: 1;
+            transform: scale(1) rotateY(0deg);
+        }
+
+        .card-inner {
             position: relative;
-            transition: transform 0.4s ease, border-color 0.3s ease, box-shadow 0.3s ease;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            width: 500px;
+            height: 500px;
+            border: 4px solid var(--neon-teal);
+            border-radius: 30px;
+            overflow: hidden;
+            background: #123c44;
+            box-shadow: 0 0 50px rgba(0, 242, 255, 0.2);
         }
 
-        .web3-card-upgraded:hover {
-            transform: scale(1.05);
+        .cinematic-card.focused .card-inner {
+            box-shadow: 0 0 80px rgba(0, 242, 255, 0.6);
             border-color: var(--neon-purple);
-            box-shadow: 0 0 40px var(--neon-purple);
-            z-index: 50;
+        }
+
+        .card-inner img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 1s ease;
+        }
+
+        .character-info {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            padding: 40px;
+            background: linear-gradient(0deg, rgba(0,0,0,0.9) 0%, transparent 100%);
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.5s 0.3s ease;
+        }
+
+        .cinematic-card.focused .character-info {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .glitch-text {
+            font-family: 'Press Start 2P';
+            font-size: 1.4rem;
+            color: #00f2ff;
+            margin: 0 0 10px 0;
+            text-shadow: 2px 2px #ff00c1;
+        }
+
+        .character-info p {
+            font-family: 'VT323';
+            font-size: 1.8rem;
+            color: #fff;
+            margin: 0;
         }
 
         .web3-card-upgraded.featured { 
