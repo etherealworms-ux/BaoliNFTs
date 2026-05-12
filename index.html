@@ -109,7 +109,12 @@
         <style>
             nav a:hover { color: #00f2ff !important; text-shadow: 0 0 10px #00f2ff; }
             @media (max-width: 768px) {
-                nav { height: 60px !important; }
+                nav { 
+                    height: 60px !important; 
+                    border-bottom: none !important; 
+                    background: transparent !important; 
+                    backdrop-filter: none !important;
+                }
                 .nav-links { display: none !important; }
                 .nav-logo { display: none !important; }
                 nav .container { justify-content: center !important; }
