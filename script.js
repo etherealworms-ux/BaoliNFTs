@@ -111,4 +111,34 @@ document.addEventListener('DOMContentLoaded', () => {
     }, { threshold: 0.15 });
 
     reveals.forEach(el => revealObserver.observe(el));
+
+    // Scroll-Scrub Parallax and Final Text Reveal
+    const galleryReveal = document.querySelector('.gallery-reveal-text');
+    const parallaxCards = document.querySelectorAll('.web3-card-upgraded[data-parallax]');
+
+    window.addEventListener('scroll', () => {
+        const scrolled = window.pageYOffset;
+        const viewportHeight = window.innerHeight;
+
+        // Parallax for cards
+        parallaxCards.forEach(card => {
+            const speed = parseFloat(card.dataset.parallax);
+            const rect = card.getBoundingClientRect();
+            const elementTop = rect.top + scrolled;
+            
+            // Only calculate if near viewport
+            if (rect.top < viewportHeight && rect.bottom > 0) {
+                const yPos = (scrolled - elementTop) * speed;
+                card.style.transform = `translateY(${yPos}px)`;
+            }
+        });
+
+        // Trigger BAOLI Text Reveal
+        if (galleryReveal) {
+            const rect = galleryReveal.getBoundingClientRect();
+            if (rect.top < viewportHeight * 0.9) {
+                galleryReveal.classList.add('active');
+            }
+        }
+    });
 });

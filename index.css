@@ -279,6 +279,15 @@ section {
         .row-left .web3-card-upgraded { transform: rotateY(10deg) rotateX(5deg); }
         .row-right .web3-card-upgraded { transform: rotateY(-10deg) rotateX(5deg); }
 
+        .web3-card-upgraded:hover img {
+            transform: scale(1.1);
+        }
+
+        .gallery-reveal-text.active {
+            opacity: 1 !important;
+            transform: translateY(0) scale(1) !important;
+        }
+
         .web3-card-upgraded img { 
             width: 100%; 
             height: 100%; 
