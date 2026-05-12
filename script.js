@@ -112,22 +112,40 @@ document.addEventListener('DOMContentLoaded', () => {
 
     reveals.forEach(el => revealObserver.observe(el));
 
-    // Dual-Row Horizontal Parallax Logic
-    const parallaxRows = document.querySelectorAll('.parallax-row');
+    // Cinematic Focal-Point Scroll Logic
+    const cinematicCards = document.querySelectorAll('.cinematic-card');
     const galleryReveal = document.querySelector('.gallery-reveal-text');
 
-    window.addEventListener('scroll', () => {
-        const scrolled = window.pageYOffset;
-        const viewportHeight = window.innerHeight;
+    let currentScroll = 0;
+    let targetScroll = 0;
+    const ease = 0.075; 
 
-        parallaxRows.forEach(row => {
-            const rect = row.getBoundingClientRect();
+    function smoothScroll() {
+        targetScroll = window.pageYOffset;
+        currentScroll += (targetScroll - currentScroll) * ease;
+        
+        const viewportHeight = window.innerHeight;
+        const centerY = viewportHeight / 2;
+
+        cinematicCards.forEach(card => {
+            const rect = card.getBoundingClientRect();
+            const cardCenterY = rect.top + rect.height / 2;
+            const distanceToCenter = Math.abs(centerY - cardCenterY);
             
+            if (distanceToCenter < 350) {
+                card.classList.add('focused');
+            } else {
+                card.classList.remove('focused');
+            }
+
+            // Depth Parallax
             if (rect.top < viewportHeight && rect.bottom > 0) {
-                const speed = parseFloat(row.dataset.speed || 1);
-                // Calculate horizontal shift based on scroll position relative to viewport
-                const shift = (rect.top - viewportHeight) * speed;
-                row.style.transform = `translateX(${shift}px)`;
+                const relativePos = (cardCenterY - centerY) / centerY;
+                const brightness = 1 - Math.abs(relativePos) * 0.4;
+                const inner = card.querySelector('.card-inner');
+                if (inner) {
+                    inner.style.filter = `brightness(${brightness})`;
+                }
             }
         });
 
@@ -142,5 +160,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 galleryReveal.querySelector('h2').style.letterSpacing = '50px';
             }
         }
-    });
+
+        requestAnimationFrame(smoothScroll);
+    }
+
+    smoothScroll();
 });
