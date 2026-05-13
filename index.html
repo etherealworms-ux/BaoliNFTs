@@ -164,7 +164,7 @@
                         Enter the Neon Dream. Collect, Lore, Conquer.<br>10,000 Unique Digital Sentinels.
                     </p>
                     <div class="hero-cta-wrapper">
-                        <a href="#" class="btn-retro cta-btn">JOIN WL</a>
+                        <a href="javascript:void(0)" id="join-wl-trigger" class="btn-retro cta-btn">JOIN WL</a>
                     </div>
                 </div>
             </section>
@@ -309,6 +309,59 @@
 
             </section>
         </main>
+    </div>
+
+    <!-- WL REGISTRATION MODAL -->
+    <div class="modal-overlay" id="wl-modal-overlay">
+        <div class="wl-modal">
+            <span class="close-modal" id="close-wl-modal">×</span>
+            
+            <!-- STEP 1: SOCIAL TASKS -->
+            <div class="wl-step active" id="step-1">
+                <h3>VERIFY MISSIONS</h3>
+                <ul class="task-list">
+                    <li class="task-item">
+                        <span class="task-link">Follow @baoliart on X</span>
+                        <a href="https://x.com/baoliart" target="_blank" class="task-btn">FOLLOW</a>
+                    </li>
+                    <li class="task-item">
+                        <span class="task-link">Retweet Official Post</span>
+                        <a href="https://x.com/baoliart/status/2054208828690890929?s=20" target="_blank" class="task-btn">RETWEET</a>
+                    </li>
+                    <li class="task-item">
+                        <span class="task-link">Create a Tweet about BAOLI</span>
+                        <a href="https://twitter.com/intent/tweet?text=Entering%20the%20Neon%20Dream%20with%20@baoliart%20%23BAOLI%20%23NFT" target="_blank" class="task-btn">TWEET</a>
+                    </li>
+                </ul>
+                <button class="btn-retro" style="width: 100%; border: none;" onclick="nextStep(2)">I'VE DONE IT</button>
+            </div>
+
+            <!-- STEP 2: FORM INPUTS -->
+            <div class="wl-step" id="step-2">
+                <h3>SUBMIT DETAILS</h3>
+                <div class="input-group">
+                    <label>YOUR TWEET LINK</label>
+                    <input type="text" id="tweet-link" class="wl-input" placeholder="https://x.com/yourname/status/...">
+                    <div id="tweet-error" class="error-msg">Please provide a valid tweet link</div>
+                </div>
+                <div class="input-group">
+                    <label>EVM ADDRESS</label>
+                    <input type="text" id="evm-address" class="wl-input" placeholder="0x...">
+                    <div id="address-error" class="error-msg">Invalid or already registered address</div>
+                </div>
+                <button class="btn-retro" style="width: 100%; border: none;" id="submit-wl">SUBMIT ENTRY</button>
+            </div>
+
+            <!-- STEP 3: SUCCESS -->
+            <div class="wl-step" id="step-3">
+                <div class="success-screen">
+                    <span class="success-icon">✔</span>
+                    <h3>MISSION SUCCESS!</h3>
+                    <p>Your entry has been recorded in the Archives. Welcome to the Dynasty.</p>
+                    <button class="btn-retro" style="width: 100%; border: none;" onclick="closeWLModal()">CLOSE</button>
+                </div>
+            </div>
+        </div>
     </div>
 
     <script src="script.js"></script>

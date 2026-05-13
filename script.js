@@ -151,4 +151,93 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }
     });
+
+    // WL Modal Logic
+    const modalOverlay = document.getElementById('wl-modal-overlay');
+    const joinBtn = document.getElementById('join-wl-trigger');
+    const closeBtn = document.getElementById('close-wl-modal');
+    const steps = document.querySelectorAll('.wl-step');
+    const submitBtn = document.getElementById('submit-wl');
+
+    const openWLModal = () => {
+        modalOverlay.style.display = 'flex';
+        setTimeout(() => modalOverlay.classList.add('active'), 10);
+    };
+
+    const closeWLModal = () => {
+        modalOverlay.classList.remove('active');
+        setTimeout(() => {
+            modalOverlay.style.display = 'none';
+            // Reset to step 1
+            nextStep(1);
+            // Clear inputs
+            document.getElementById('tweet-link').value = '';
+            document.getElementById('evm-address').value = '';
+            document.querySelectorAll('.error-msg').forEach(el => el.style.display = 'none');
+        }, 400);
+    };
+
+    window.nextStep = (n) => {
+        steps.forEach(s => s.classList.remove('active'));
+        document.getElementById(`step-${n}`).classList.add('active');
+    };
+
+    window.closeWLModal = closeWLModal;
+
+    if (joinBtn) joinBtn.addEventListener('click', openWLModal);
+    if (closeBtn) closeBtn.addEventListener('click', closeWLModal);
+
+    // Close on outside click
+    modalOverlay.addEventListener('click', (e) => {
+        if (e.target === modalOverlay) closeWLModal();
+    });
+
+    // Validation and Submission
+    if (submitBtn) {
+        submitBtn.addEventListener('click', () => {
+            const tweetLink = document.getElementById('tweet-link').value.trim();
+            const evmAddress = document.getElementById('evm-address').value.trim();
+            const tweetError = document.getElementById('tweet-error');
+            const addressError = document.getElementById('address-error');
+
+            let isValid = true;
+
+            // Simple Tweet Link Validation
+            const tweetRegex = /^(https?:\/\/)?(www\.)?(twitter|x)\.com\/.+/i;
+            if (!tweetRegex.test(tweetLink)) {
+                tweetError.style.display = 'block';
+                isValid = false;
+            } else {
+                tweetError.style.display = 'none';
+            }
+
+            // EVM Address Validation
+            const evmRegex = /^0x[a-fA-F0-9]{40}$/;
+            if (!evmRegex.test(evmAddress)) {
+                addressError.textContent = 'Invalid EVM address format';
+                addressError.style.display = 'block';
+                isValid = false;
+            } else {
+                // Check for duplicates in LocalStorage
+                const registeredAddresses = JSON.parse(localStorage.getItem('baoli_wl_addresses') || '[]');
+                if (registeredAddresses.includes(evmAddress.toLowerCase())) {
+                    addressError.textContent = 'This address is already registered';
+                    addressError.style.display = 'block';
+                    isValid = false;
+                } else {
+                    addressError.style.display = 'none';
+                }
+            }
+
+            if (isValid) {
+                // Save address to LocalStorage
+                const registeredAddresses = JSON.parse(localStorage.getItem('baoli_wl_addresses') || '[]');
+                registeredAddresses.push(evmAddress.toLowerCase());
+                localStorage.setItem('baoli_wl_addresses', JSON.stringify(registeredAddresses));
+
+                // Go to success step
+                nextStep(3);
+            }
+        });
+    }
 });
