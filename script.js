@@ -256,7 +256,7 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     if (submitBtn) {
-        submitBtn.addEventListener('click', () => {
+        submitBtn.addEventListener('click', async () => {
             const tweetLink = document.getElementById('tweet-link').value.trim();
             const evmAddress = document.getElementById('evm-address').value.trim();
             const tweetError = document.getElementById('tweet-error');
@@ -277,21 +277,45 @@ document.addEventListener('DOMContentLoaded', () => {
                 addressError.style.display = 'block';
                 isValid = false;
             } else {
-                const registeredAddresses = JSON.parse(localStorage.getItem('baoli_wl_addresses') || '[]');
-                if (registeredAddresses.includes(evmAddress.toLowerCase())) {
-                    addressError.textContent = 'ADDRESS_ALREADY_ARCHIVED';
-                    addressError.style.display = 'block';
-                    isValid = false;
-                } else {
-                    addressError.style.display = 'none';
-                }
+                addressError.style.display = 'none';
             }
 
             if (isValid) {
-                const registeredAddresses = JSON.parse(localStorage.getItem('baoli_wl_addresses') || '[]');
-                registeredAddresses.push(evmAddress.toLowerCase());
-                localStorage.setItem('baoli_wl_addresses', JSON.stringify(registeredAddresses));
-                nextStep(3);
+                // Show loading state
+                const originalText = submitBtn.textContent;
+                submitBtn.textContent = 'TRANSMITTING...';
+                submitBtn.classList.add('disabled');
+
+                try {
+                    // REPLACE THIS URL with your Google Apps Script Web App URL
+                    const SCRIPT_URL = 'YOUR_GOOGLE_APPS_SCRIPT_URL_HERE';
+                    
+                    // Fallback to local storage if URL is not set
+                    if (SCRIPT_URL === 'YOUR_GOOGLE_APPS_SCRIPT_URL_HERE') {
+                        console.warn('Google Script URL not configured. Saving locally.');
+                        const registeredAddresses = JSON.parse(localStorage.getItem('baoli_wl_addresses') || '[]');
+                        registeredAddresses.push(evmAddress.toLowerCase());
+                        localStorage.setItem('baoli_wl_addresses', JSON.stringify(registeredAddresses));
+                        nextStep(3);
+                        return;
+                    }
+
+                    const response = await fetch(SCRIPT_URL, {
+                        method: 'POST',
+                        mode: 'no-cors', // Apps Script requires no-cors for simple POST
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ tweetLink, evmAddress })
+                    });
+
+                    // Since no-cors doesn't return response body, we assume success if no error thrown
+                    nextStep(3);
+                } catch (error) {
+                    console.error('Submission error:', error);
+                    addressError.textContent = 'TRANSMISSION_FAILED. RETRY.';
+                    addressError.style.display = 'block';
+                    submitBtn.textContent = originalText;
+                    submitBtn.classList.remove('disabled');
+                }
             }
         });
     }
