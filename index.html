@@ -331,29 +331,32 @@
                 <div class="wl-step active" id="step-1">
                     <h4>VERIFY MISSIONS</h4>
                     <div class="task-grid">
-                        <div class="task-module" data-index="1">
+                        <div class="task-module" data-index="1" id="task-follow">
                             <div class="task-info">
                                 <label>MISSION_01</label>
                                 <span>Follow @baoliart</span>
+                                <span class="task-status status-pending">STATUS: PENDING</span>
                             </div>
-                            <a href="https://x.com/baoliart" target="_blank" class="task-btn">GO</a>
+                            <a href="https://x.com/baoliart" target="_blank" class="task-btn" data-task="follow">GO</a>
                         </div>
-                        <div class="task-module" data-index="2">
+                        <div class="task-module" data-index="2" id="task-retweet">
                             <div class="task-info">
                                 <label>MISSION_02</label>
                                 <span>Retweet Official Post</span>
+                                <span class="task-status status-pending">STATUS: PENDING</span>
                             </div>
-                            <a href="https://x.com/baoliart/status/2054208828690890929?s=20" target="_blank" class="task-btn">GO</a>
+                            <a href="https://x.com/baoliart/status/2054208828690890929?s=20" target="_blank" class="task-btn" data-task="retweet">GO</a>
                         </div>
-                        <div class="task-module" data-index="3">
+                        <div class="task-module" data-index="3" id="task-tweet">
                             <div class="task-info">
                                 <label>MISSION_03</label>
                                 <span>Broadcast Tweet</span>
+                                <span class="task-status status-pending">STATUS: PENDING</span>
                             </div>
-                            <a href="https://twitter.com/intent/tweet?text=Entering%20the%20Neon%20Dream%20with%20@baoliart%20%23BAOLI%20%23NFT" target="_blank" class="task-btn">GO</a>
+                            <a href="https://twitter.com/intent/tweet?text=Entering%20the%20Neon%20Dream%20with%20@baoliart%20%23BAOLI%20%23NFT" target="_blank" class="task-btn" data-task="tweet">GO</a>
                         </div>
                     </div>
-                    <button class="btn-retro" style="width: 100%; border: none;" onclick="nextStep(2)">CONTINUE PROTOCOL</button>
+                    <button class="btn-retro disabled" id="continue-protocol" style="width: 100%; border: none;" onclick="nextStep(2)">CONTINUE PROTOCOL</button>
                 </div>
 
                 <!-- STEP 2: FORM INPUTS -->

@@ -159,6 +159,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const steps = document.querySelectorAll('.wl-step');
     const progressDots = document.querySelectorAll('.prog-dot');
     const submitBtn = document.getElementById('submit-wl');
+    const continueBtn = document.getElementById('continue-protocol');
+    const taskBtns = document.querySelectorAll('.task-btn');
+
+    let completedTasks = { follow: false, retweet: false, tweet: false };
 
     const openWLModal = () => {
         modalOverlay.style.display = 'flex';
@@ -170,17 +174,36 @@ document.addEventListener('DOMContentLoaded', () => {
         setTimeout(() => {
             modalOverlay.style.display = 'none';
             nextStep(1);
-            document.getElementById('tweet-link').value = '';
-            document.getElementById('evm-address').value = '';
-            document.querySelectorAll('.error-msg').forEach(el => el.style.display = 'none');
+            resetWLForm();
         }, 400);
+    };
+
+    const resetWLForm = () => {
+        document.getElementById('tweet-link').value = '';
+        document.getElementById('evm-address').value = '';
+        document.querySelectorAll('.error-msg').forEach(el => el.style.display = 'none');
+        
+        // Reset tasks
+        completedTasks = { follow: false, retweet: false, tweet: false };
+        if (continueBtn) continueBtn.classList.add('disabled');
+        
+        document.querySelectorAll('.task-module').forEach(mod => {
+            mod.classList.remove('checking', 'verified');
+            const status = mod.querySelector('.task-status');
+            status.textContent = 'STATUS: PENDING';
+            status.className = 'task-status status-pending';
+        });
+        
+        document.querySelectorAll('.task-btn').forEach(btn => {
+            btn.classList.remove('verified');
+            btn.textContent = 'GO';
+        });
     };
 
     window.nextStep = (n) => {
         steps.forEach(s => s.classList.remove('active'));
         document.getElementById(`step-${n}`).classList.add('active');
         
-        // Update progress dots
         progressDots.forEach((dot, idx) => {
             if (idx < n) dot.classList.add('active');
             else dot.classList.remove('active');
@@ -195,6 +218,42 @@ document.addEventListener('DOMContentLoaded', () => {
     modalOverlay.addEventListener('click', (e) => {
         if (e.target === modalOverlay) closeWLModal();
     });
+
+    // Task Verification Simulation
+    taskBtns.forEach(btn => {
+        btn.addEventListener('click', (e) => {
+            const taskType = btn.dataset.task;
+            if (completedTasks[taskType]) return;
+
+            const module = btn.closest('.task-module');
+            const status = module.querySelector('.task-status');
+
+            // Set to checking
+            module.classList.add('checking');
+            status.textContent = 'STATUS: CHECKING...';
+            status.className = 'task-status status-checking';
+            btn.textContent = '...';
+
+            // Simulate API verification delay
+            setTimeout(() => {
+                module.classList.remove('checking');
+                module.classList.add('verified');
+                status.textContent = 'STATUS: VERIFIED';
+                status.className = 'task-status status-verified';
+                btn.textContent = 'OK';
+                btn.classList.add('verified');
+                
+                completedTasks[taskType] = true;
+                checkAllTasks();
+            }, 3000);
+        });
+    });
+
+    const checkAllTasks = () => {
+        if (completedTasks.follow && completedTasks.retweet && completedTasks.tweet) {
+            if (continueBtn) continueBtn.classList.remove('disabled');
+        }
+    };
 
     if (submitBtn) {
         submitBtn.addEventListener('click', () => {

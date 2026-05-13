@@ -942,6 +942,45 @@ section {
     color: #fff;
 }
 
+.task-module.checking {
+    border-color: var(--neon-teal);
+    background: rgba(0, 242, 255, 0.05);
+}
+
+.task-module.verified {
+    border-color: #00ff00;
+    background: rgba(0, 255, 0, 0.05);
+}
+
+.task-status {
+    font-family: 'Press Start 2P';
+    font-size: 8px;
+    margin-top: 8px;
+    display: block;
+}
+
+.status-pending { color: var(--text-dim); }
+.status-checking { color: var(--neon-teal); animation: pulse 1s infinite; }
+.status-verified { color: #00ff00; }
+
+@keyframes pulse {
+    0% { opacity: 1; }
+    50% { opacity: 0.5; }
+    100% { opacity: 1; }
+}
+
+.task-btn.verified {
+    background: #00ff00 !important;
+    pointer-events: none;
+}
+
+.btn-retro.disabled {
+    opacity: 0.3 !important;
+    pointer-events: none;
+    filter: brightness(0.5);
+}
+
+
 /* Premium Inputs */
 .input-container {
     margin-bottom: 30px;
