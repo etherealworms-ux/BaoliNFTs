@@ -157,6 +157,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const joinBtn = document.getElementById('join-wl-trigger');
     const closeBtn = document.getElementById('close-wl-modal');
     const steps = document.querySelectorAll('.wl-step');
+    const progressDots = document.querySelectorAll('.prog-dot');
     const submitBtn = document.getElementById('submit-wl');
 
     const openWLModal = () => {
@@ -168,9 +169,7 @@ document.addEventListener('DOMContentLoaded', () => {
         modalOverlay.classList.remove('active');
         setTimeout(() => {
             modalOverlay.style.display = 'none';
-            // Reset to step 1
             nextStep(1);
-            // Clear inputs
             document.getElementById('tweet-link').value = '';
             document.getElementById('evm-address').value = '';
             document.querySelectorAll('.error-msg').forEach(el => el.style.display = 'none');
@@ -180,6 +179,12 @@ document.addEventListener('DOMContentLoaded', () => {
     window.nextStep = (n) => {
         steps.forEach(s => s.classList.remove('active'));
         document.getElementById(`step-${n}`).classList.add('active');
+        
+        // Update progress dots
+        progressDots.forEach((dot, idx) => {
+            if (idx < n) dot.classList.add('active');
+            else dot.classList.remove('active');
+        });
     };
 
     window.closeWLModal = closeWLModal;
@@ -187,12 +192,10 @@ document.addEventListener('DOMContentLoaded', () => {
     if (joinBtn) joinBtn.addEventListener('click', openWLModal);
     if (closeBtn) closeBtn.addEventListener('click', closeWLModal);
 
-    // Close on outside click
     modalOverlay.addEventListener('click', (e) => {
         if (e.target === modalOverlay) closeWLModal();
     });
 
-    // Validation and Submission
     if (submitBtn) {
         submitBtn.addEventListener('click', () => {
             const tweetLink = document.getElementById('tweet-link').value.trim();
@@ -201,8 +204,6 @@ document.addEventListener('DOMContentLoaded', () => {
             const addressError = document.getElementById('address-error');
 
             let isValid = true;
-
-            // Simple Tweet Link Validation
             const tweetRegex = /^(https?:\/\/)?(www\.)?(twitter|x)\.com\/.+/i;
             if (!tweetRegex.test(tweetLink)) {
                 tweetError.style.display = 'block';
@@ -211,17 +212,15 @@ document.addEventListener('DOMContentLoaded', () => {
                 tweetError.style.display = 'none';
             }
 
-            // EVM Address Validation
             const evmRegex = /^0x[a-fA-F0-9]{40}$/;
             if (!evmRegex.test(evmAddress)) {
-                addressError.textContent = 'Invalid EVM address format';
+                addressError.textContent = 'INVALID_ADDRESS_FORMAT';
                 addressError.style.display = 'block';
                 isValid = false;
             } else {
-                // Check for duplicates in LocalStorage
                 const registeredAddresses = JSON.parse(localStorage.getItem('baoli_wl_addresses') || '[]');
                 if (registeredAddresses.includes(evmAddress.toLowerCase())) {
-                    addressError.textContent = 'This address is already registered';
+                    addressError.textContent = 'ADDRESS_ALREADY_ARCHIVED';
                     addressError.style.display = 'block';
                     isValid = false;
                 } else {
@@ -230,12 +229,9 @@ document.addEventListener('DOMContentLoaded', () => {
             }
 
             if (isValid) {
-                // Save address to LocalStorage
                 const registeredAddresses = JSON.parse(localStorage.getItem('baoli_wl_addresses') || '[]');
                 registeredAddresses.push(evmAddress.toLowerCase());
                 localStorage.setItem('baoli_wl_addresses', JSON.stringify(registeredAddresses));
-
-                // Go to success step
                 nextStep(3);
             }
         });
