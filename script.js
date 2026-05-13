@@ -287,8 +287,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 submitBtn.classList.add('disabled');
 
                 try {
-                    // REPLACE THIS URL with your Google Apps Script Web App URL
-                    const SCRIPT_URL = 'YOUR_GOOGLE_APPS_SCRIPT_URL_HERE';
+                    // Live Google Apps Script Web App URL
+                    const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbydnm83TUmH4MYhJ-qzSANCWUlsrNYjnj9WFokn9mQgJLcV8bfq4ADPyoJEepHFzp7UzA/exec';
                     
                     // Fallback to local storage if URL is not set
                     if (SCRIPT_URL === 'YOUR_GOOGLE_APPS_SCRIPT_URL_HERE') {
